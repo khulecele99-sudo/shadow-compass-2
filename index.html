@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ShadowCompass · the sovereign shadow compass · seven shapes · runs in your browser</title>
+<meta name="description" content="ShadowCompass is a sovereign shadow compass. Seven shape questions, one shape result, one prescribed breathing or vocal exercise. Runs in your browser. Nothing leaves your device. MIT-licensed. Free forever.">
+<meta name="keywords" content="shadow compass, self-reflection tool, sovereign wellness app, private mental health tool, browser-native therapy tool, offline stress test, MIT wellness, seven shapes, AI-Native Solutions, ShadowCompass">
+<meta name="author" content="AI-Native Solutions">
+<meta name="theme-color" content="#030308">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://sjgant80-hub.github.io/shadowcompass/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ShadowCompass">
+<meta property="og:title" content="ShadowCompass · the sovereign shadow compass">
+<meta property="og:description" content="Seven shapes. One reflection. Runs in your browser. Nothing leaves your device.">
+<meta property="og:url" content="https://sjgant80-hub.github.io/shadowcompass/">
+
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ShadowCompass · seven-shape shadow compass">
+<meta name="twitter:description" content="A private reflection tool. Runs offline. Your data never leaves.">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23030308'/%3E%3Ctext x='16' y='22' font-family='serif' font-size='18' fill='%23c9a84c' text-anchor='middle'%3E%E2%97%8A%3C/text%3E%3C/svg%3E">
+<link rel="manifest" href="./manifest.webmanifest">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ShadowCompass",
+  "description": "A sovereign shadow compass. Seven shape questions, one shape result, one prescribed breathing or vocal exercise. Runs in your browser. Nothing leaves your device.",
+  "applicationCategory": "HealthApplication",
+  "operatingSystem": "Any modern browser",
+  "url": "https://sjgant80-hub.github.io/shadowcompass/",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Organization",
+    "name": "AI-Native Solutions",
+    "url": "https://ai-nativesolutions.com"
+  },
+  "featureList": [
+    "Runs entirely in-browser · no server",
+    "No account, no login, no telemetry",
+    "IndexedDB local journal · your data never leaves",
+    "Seven-shape shadow-pattern classification with published research citations",
+    "Prescribed breathing and vocal exercises per shape",
+    "MIT licensed · fork it, host it, run it from disk"
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is ShadowCompass?", "acceptedAnswer": { "@type": "Answer", "text": "A private shadow compass. You answer seven short questions, it identifies which of seven shadow patterns fits you right now, and prescribes one breathing or vocal exercise for that shape." } },
+    { "@type": "Question", "name": "Does my data leave my device?", "acceptedAnswer": { "@type": "Answer", "text": "No. The app runs entirely in your browser. There is no server, no account, no telemetry. Your journal lives in IndexedDB on your device. You can export it or wipe it any time." } },
+    { "@type": "Question", "name": "Is this medical advice?", "acceptedAnswer": { "@type": "Answer", "text": "No. ShadowCompass is a reflection tool grounded in published stress and shadow research. It is not a diagnosis, not therapy, and not a substitute for professional care. If you're in crisis, contact a qualified professional or emergency services." } },
+    { "@type": "Question", "name": "What are the seven shapes?", "acceptedAnswer": { "@type": "Answer", "text": "Tetrahedron (sharp edge), Spiral (chase), Sphere (flood), Line (flatline), Cone (squeeze), Mirror (comparison), Tower (mask). Each corresponds to a distinct shadow pattern documented in the published research linked in the app." } },
+    { "@type": "Question", "name": "Why shapes instead of labels?", "acceptedAnswer": { "@type": "Answer", "text": "Because the same energy takes different geometric forms depending on where it's stuck. A shape is easier to notice, name, and change than a label. Shapes rotate; identities don't." } }
+  ]
+}
+</script>
+
+<style>
+:root{
+  --void:#030308;--deep:#0a0a14;--surface:#10101e;--raised:#33333a;
+  --line:rgba(232,228,219,0.08);--line2:rgba(232,228,219,0.16);
+  --text:#e8e4db;--muted:#928d80;--dim:#6b6660;
+  --sage:#c9a84c;--sage-dim:rgba(201,168,76,0.14);
+  --amber:#d4a052;--amber-dim:rgba(212,160,82,0.12);
+  --coral:#d67a5a;--coral-glow:rgba(214,122,90,0.15);
+  --serif:'Cormorant Garamond','Iowan Old Style',Georgia,serif;
+  --sans:'Inter',-apple-system,system-ui,sans-serif;
+  --mono:'JetBrains Mono','IBM Plex Mono',monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--void);color:var(--text);font-family:var(--sans);font-size:15.5px;line-height:1.65;-webkit-font-smoothing:antialiased;min-height:100vh}
+button{font-family:inherit;cursor:pointer;border:none;outline:none;color:inherit;background:transparent}
+input,textarea{font-family:inherit;background:transparent;color:var(--text);border:none;outline:none;width:100%}
+a{color:var(--sage);text-decoration:none}
+a:hover{color:var(--text)}
+h1,h2,h3{font-family:var(--serif);font-weight:400;color:var(--text);line-height:1.2}
+h1{font-size:clamp(30px,5vw,48px);letter-spacing:0.005em;margin-bottom:10px}
+h1 em{color:var(--sage);font-style:italic}
+h2{font-size:clamp(22px,3vw,30px);color:var(--text);margin-bottom:14px}
+h2 em{color:var(--sage);font-style:italic}
+h3{font-size:12px;color:var(--muted);margin-bottom:8px;text-transform:uppercase;letter-spacing:0.14em;font-family:var(--mono);font-weight:500}
+
+.app{display:grid;grid-template-rows:auto 1fr auto;min-height:100vh}
+.topbar{background:rgba(26,26,30,0.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);padding:14px 24px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:50}
+.brand{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:22px;color:var(--text)}
+.brand .glyph{color:var(--sage);font-size:22px}
+.brand .co{color:var(--dim);font-family:var(--mono);font-size:9.5px;letter-spacing:0.16em;margin-left:6px;text-transform:uppercase}
+.tabs{display:flex;gap:2px}
+.tab{color:var(--muted);padding:8px 14px;border-radius:6px;font-family:var(--mono);font-size:10.5px;letter-spacing:0.14em;text-transform:uppercase;transition:all .15s}
+.tab:hover{color:var(--text);background:var(--sage-dim)}
+.tab.on{color:var(--sage);background:var(--sage-dim)}
+@media(max-width:640px){.tab{padding:6px 10px;font-size:9.5px}.brand .co{display:none}}
+
+main{padding:48px 24px 80px;max-width:920px;margin:0 auto;width:100%}
+.view{display:none}
+.view.on{display:block;animation:fade .3s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+.hero{text-align:center;padding:60px 0 40px}
+.hero .kicker{font-family:var(--mono);font-size:11px;letter-spacing:0.2em;color:var(--sage);text-transform:uppercase;margin-bottom:24px}
+.hero p.lede{font-family:var(--serif);font-size:clamp(19px,2.3vw,24px);color:var(--muted);font-style:italic;max-width:640px;margin:18px auto 32px;line-height:1.5}
+.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:12px}
+.btn{padding:14px 28px;border-radius:6px;font-family:var(--mono);font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;border:1px solid var(--line2);color:var(--text);transition:all .2s;font-weight:500;background:transparent}
+.btn.primary{background:var(--sage);color:var(--void);border-color:var(--sage);font-weight:600}
+.btn.primary:hover{background:var(--text);border-color:var(--text)}
+.btn:hover{border-color:var(--sage);color:var(--sage)}
+
+.hero-shapes{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:44px auto 0;max-width:640px}
+.hero-shape{font-size:30px;color:var(--sage);opacity:0.5;transition:opacity .3s,transform .3s;cursor:default}
+.hero-shape:hover{opacity:1;transform:translateY(-3px)}
+
+.promise{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:56px}
+.promise-item{background:var(--deep);padding:24px 22px}
+.promise-item .icon{font-family:var(--mono);font-size:14px;color:var(--sage);margin-bottom:10px;letter-spacing:0.1em}
+.promise-item h3{color:var(--text);text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:18px;margin-bottom:8px}
+.promise-item p{font-size:14px;color:var(--muted);line-height:1.6}
+
+.sonar-intro{text-align:center;margin-bottom:40px}
+.probe{background:var(--deep);border:1px solid var(--line);padding:32px 28px;margin-bottom:18px;border-radius:10px;transition:border-color .2s}
+.probe.active{border-color:var(--sage)}
+.probe-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.probe-num{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:0.14em;text-transform:uppercase}
+.probe-shape{font-size:26px;color:var(--sage)}
+.probe q{font-family:var(--serif);font-size:22px;line-height:1.4;color:var(--text);font-style:normal;display:block;margin-bottom:20px}
+.probe q::before,.probe q::after{content:''}
+.probe .helper{font-size:13px;color:var(--muted);margin-bottom:22px;line-height:1.55}
+.slider-wrap{padding:12px 0}
+.slider-row{display:flex;align-items:center;gap:14px}
+.slider-row input[type=range]{flex:1;height:6px;background:var(--surface);border-radius:3px;-webkit-appearance:none;appearance:none;outline:none}
+.slider-row input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;background:var(--sage);border-radius:50%;cursor:pointer;transition:transform .1s}
+.slider-row input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+.slider-row input[type=range]::-moz-range-thumb{width:24px;height:24px;background:var(--sage);border-radius:50%;cursor:pointer;border:none}
+.slider-val{font-family:var(--mono);font-size:14px;color:var(--sage);min-width:32px;text-align:center;font-weight:600}
+.slider-labels{display:flex;justify-content:space-between;margin-top:8px;font-family:var(--mono);font-size:10px;color:var(--dim);text-transform:uppercase;letter-spacing:0.1em}
+.sonar-actions{margin-top:32px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+
+.result-hero{text-align:center;padding:40px 0 32px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.result-shape-big{font-size:96px;color:var(--sage);line-height:1;margin-bottom:20px;text-shadow:0 0 40px var(--sage-dim)}
+.result-name{font-family:var(--serif);font-size:44px;color:var(--text);margin-bottom:6px}
+.result-latin{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:0.2em;text-transform:uppercase;margin-bottom:18px}
+.result-tag{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:18px}
+.result-score{display:inline-block;background:var(--sage-dim);color:var(--sage);padding:6px 14px;border-radius:20px;font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;margin-top:16px}
+
+.result-section{margin-bottom:36px;background:var(--deep);border:1px solid var(--line);padding:28px 26px;border-radius:8px}
+.result-section h3{color:var(--sage);margin-bottom:14px}
+.result-section p{color:var(--text);margin-bottom:12px}
+.result-section p:last-child{margin-bottom:0}
+.result-section .cite{font-family:var(--mono);font-size:12px;color:var(--muted);border-left:2px solid var(--sage);padding:8px 14px;margin:14px 0;background:rgba(201,168,76,0.05);line-height:1.55}
+
+.exercise-box{background:var(--surface);border:1px solid var(--sage);padding:26px;border-radius:8px;margin-top:20px}
+.exercise-name{font-family:var(--serif);font-size:26px;color:var(--sage);margin-bottom:12px;font-style:italic;text-align:center}
+.exercise-steps{text-align:left;max-width:520px;margin:16px auto 0;padding-left:20px}
+.exercise-steps li{color:var(--text);margin-bottom:8px;font-size:14.5px;line-height:1.6}
+.exercise-steps li::marker{color:var(--sage);font-family:var(--mono)}
+
+.result-actions{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:36px}
+
+.other-shapes{margin-top:28px;padding:22px;background:var(--deep);border:1px solid var(--line);border-radius:8px}
+.other-shapes h3{color:var(--muted);margin-bottom:14px}
+.other-shapes-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.mini-shape{padding:12px;background:var(--surface);border-radius:6px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.mini-shape .g{font-size:18px;color:var(--sage);opacity:0.7}
+.mini-shape .s{font-family:var(--mono);font-size:11px;color:var(--dim);margin-left:auto}
+
+.connection-frame{background:linear-gradient(135deg,var(--sage-dim),transparent);border:1px solid var(--sage);padding:28px;border-radius:10px;margin-top:32px;text-align:center}
+.connection-frame h3{color:var(--sage)}
+.connection-frame p{font-family:var(--serif);font-size:18px;color:var(--text);font-style:italic;line-height:1.55;max-width:560px;margin:0 auto}
+
+.journal-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.journal-empty p{font-family:var(--serif);font-size:20px;font-style:italic;margin-bottom:20px}
+.entry{background:var(--deep);border:1px solid var(--line);padding:22px 24px;border-radius:8px;margin-bottom:12px;display:grid;grid-template-columns:auto 1fr auto;gap:20px;align-items:center}
+.entry .shape-glyph{font-size:32px;color:var(--sage)}
+.entry .entry-body h4{font-family:var(--serif);font-size:18px;color:var(--text);margin-bottom:4px}
+.entry .entry-body .meta{font-family:var(--mono);font-size:11px;color:var(--dim);letter-spacing:0.08em;text-transform:uppercase}
+.entry .entry-actions{display:flex;gap:6px}
+.icon-btn{padding:6px 10px;color:var(--muted);font-family:var(--mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;border:1px solid var(--line);border-radius:4px;transition:all .15s;background:transparent;cursor:pointer}
+.icon-btn:hover{color:var(--coral);border-color:var(--coral)}
+.journal-controls{display:flex;gap:12px;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap}
+
+.timeline{margin-top:36px;padding:22px;background:var(--deep);border:1px solid var(--line);border-radius:8px}
+.timeline h3{color:var(--sage);margin-bottom:16px}
+.tl-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end}
+.tl-col{display:flex;flex-direction:column;align-items:center;gap:6px}
+.tl-bar{width:100%;background:var(--sage-dim);border-radius:3px 3px 0 0;min-height:4px;position:relative;transition:height .3s}
+.tl-bar:hover{background:var(--sage)}
+.tl-label{font-size:24px;color:var(--sage);opacity:0.7}
+.tl-count{font-family:var(--mono);font-size:10px;color:var(--muted)}
+
+.prose{max-width:720px;margin:0 auto}
+.prose h2{margin-top:36px;margin-bottom:12px}
+.prose h2:first-child{margin-top:0}
+.prose h3{color:var(--sage);text-transform:none;letter-spacing:0;font-family:var(--serif);font-size:19px;margin-top:26px;margin-bottom:8px}
+.prose p{color:var(--text);margin-bottom:14px;line-height:1.7}
+.prose ul{margin:12px 0 18px 20px;color:var(--text)}
+.prose li{margin-bottom:6px}
+.prose blockquote{border-left:2px solid var(--sage);padding-left:18px;margin:18px 0;color:var(--muted);font-family:var(--serif);font-size:18px;font-style:italic;line-height:1.55}
+
+.faq-item{background:var(--deep);border:1px solid var(--line);border-radius:8px;padding:20px 24px;margin-bottom:12px}
+.faq-item summary{cursor:pointer;font-family:var(--serif);font-size:19px;color:var(--text);list-style:none;position:relative;padding-right:30px}
+.faq-item summary::after{content:'+';position:absolute;right:0;top:-3px;color:var(--sage);font-size:24px;font-family:var(--mono);transition:transform .2s}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{margin-top:14px;color:var(--muted);line-height:1.65}
+
+.glossary-item{padding:16px 0;border-bottom:1px solid var(--line)}
+.glossary-item:last-child{border:none}
+.glossary-item dt{font-family:var(--mono);font-size:12px;color:var(--sage);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px}
+.glossary-item dd{color:var(--text);margin-left:0;line-height:1.55}
+
+footer{border-top:1px solid var(--line);padding:32px 24px;text-align:center;color:var(--dim);font-family:var(--mono);font-size:11px;letter-spacing:0.08em;line-height:1.8}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--sage)}
+footer .foot-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+
+.disclaimer{max-width:640px;margin:32px auto 0;padding:16px 20px;background:var(--surface);border-left:2px solid var(--amber);color:var(--muted);font-size:13px;line-height:1.6;border-radius:4px}
+.disclaimer strong{color:var(--amber);font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
+
+/* Mobile layout refinements */
+.topbar{flex-wrap:wrap;gap:10px}
+.tabs{display:flex;gap:6px;max-width:100%;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
+.tab{flex:0 0 auto}
+@media(max-width:700px){
+.app{padding-left:14px;padding-right:14px}.topbar{align-items:flex-start}
+.brand{flex-wrap:wrap}.tabs{width:100%;padding-bottom:5px}
+.hero{padding:36px 0 24px}.hero-shapes{gap:12px;flex-wrap:wrap}
+.promise{grid-template-columns:1fr;gap:18px}
+.ctas,.sonar-actions,.journal-controls{gap:10px;flex-wrap:wrap}
+.ctas .btn,.sonar-actions .btn{flex:1 1 100%}
+button,.btn{min-height:44px}
+}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+</style>
+</head>
+<body>
+
+<div class="app">
+
+<header class="topbar">
+  <div class="brand">
+    <span class="glyph">◬</span>
+    <span>ShadowCompass</span>
+    <span class="co">AI-Native Solutions</span>
+  </div>
+  <nav class="tabs">
+    <button class="tab on" data-view="home">Home</button>
+    <button class="tab" data-view="sonar">Sonar</button>
+    <button class="tab" data-view="journal">Journal</button>
+    <button class="tab" data-view="about">About</button>
+    <button class="tab" data-view="faq">FAQ</button>
+  </nav>
+</header>
+
+<main>
+
+<section class="view on" id="view-home">
+  <div class="hero">
+    <div class="kicker">◬ the sovereign shadow compass</div>
+    <h1>Seven shapes. <em>One reflection.</em><br>Runs in your browser.</h1>
+    <p class="lede">Stress doesn't feel like one thing. It takes shape. ShadowCompass asks seven short questions, tells you which shape fits you right now, and prescribes one breath or vocal exercise for that shape. Two minutes. No account. Nothing leaves your device.</p>
+    <div class="ctas">
+      <button class="btn primary" onclick="switchView('sonar')">Take the sonar →</button>
+      <button class="btn" onclick="switchView('about')">How it works</button>
+    </div>
+    <div class="hero-shapes" title="the seven shapes">
+      <span class="hero-shape" title="Tetrahedron · Sharp Edge">▲</span>
+      <span class="hero-shape" title="Spiral · The Chase">◎</span>
+      <span class="hero-shape" title="Sphere · The Flood">●</span>
+      <span class="hero-shape" title="Line · Flatline">—</span>
+      <span class="hero-shape" title="Cone · Squeeze">◄</span>
+      <span class="hero-shape" title="Mirror · Comparison">◇</span>
+      <span class="hero-shape" title="Tower · Mask">▯</span>
+    </div>
+  </div>
+
+  <div class="promise">
+    <div class="promise-item">
+      <div class="icon">01</div>
+      <h3>Sovereign by design</h3>
+      <p>Runs entirely in-browser. No account, no login, no server. Your journal lives in local storage on your device.</p>
+    </div>
+    <div class="promise-item">
+      <div class="icon">02</div>
+      <h3>Grounded in research</h3>
+      <p>Every shape maps to a published shadow pattern — Friedman-Rosenman, Porges, Koob-Volkow, Mani-Shafir, and others. Citations in the app.</p>
+    </div>
+    <div class="promise-item">
+      <div class="icon">03</div>
+      <h3>Actionable, not analytical</h3>
+      <p>Each result comes with one specific breath or vocal exercise. Two minutes to do. No app to Access to. No professional to book.</p>
+    </div>
+    <div class="promise-item">
+      <div class="icon">04</div>
+      <h3>MIT · fork it</h3>
+      <p>Every line of code is public and MIT-licensed. Save the HTML to disk. Runs offline forever. Yours.</p>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    <strong>Not medical advice</strong><br>
+    ShadowCompass is a reflection tool, not a diagnosis. If you're in crisis, contact a qualified professional or emergency services. UK: <a href="https://www.samaritans.org/">Samaritans 116 123</a>. US: <a href="https://988lifeline.org/">988 Suicide &amp; Crisis Lifeline</a>.
+  </div>
+</section>
+
+<section class="view" id="view-sonar">
+  <div class="sonar-intro">
+    <h2>How much does each of these <em>feel like you right now?</em></h2>
+    <p style="color:var(--muted);font-size:15px;max-width:600px;margin:14px auto 0;line-height:1.6">Move each slider to how much the statement fits you today. No wrong answers. This isn't a test. It's a mirror.</p>
+  </div>
+
+  <div id="probes"></div>
+
+  <div class="sonar-actions">
+    <button class="btn primary" onclick="scoreSonar()">Reflect →</button>
+    <button class="btn" onclick="resetSonar()">Reset sliders</button>
+  </div>
+</section>
+
+<section class="view" id="view-result">
+  <div id="result-content"></div>
+</section>
+
+<section class="view" id="view-journal">
+  <h2>Your reflection journal</h2>
+  <p style="color:var(--muted);margin-bottom:24px">Every sonar result you've kept. Stored locally on this device. Nothing on any server.</p>
+
+  <div class="journal-controls">
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn" onclick="exportJournal()">↓ Export JSON</button>
+      <button class="btn" onclick="importJournal()">↑ Import JSON</button>
+    </div>
+    <button class="btn" style="border-color:var(--coral);color:var(--coral)" onclick="wipeJournal()">Wipe all</button>
+  </div>
+
+  <div id="journal-content"></div>
+  <div id="timeline-content"></div>
+</section>
+
+<section class="view" id="view-about">
+  <div class="prose">
+    <h2>What ShadowCompass is</h2>
+    <p>ShadowCompass is a private, browser-native shadow compass. You answer seven short slider questions. It tells you which of seven distinct shadow patterns fits you strongest right now, gives you the published research behind that pattern, and prescribes one specific breath or vocal exercise to try.</p>
+    <p>That's it. There's no chat, no algorithm learning about you, no account, no telemetry, no cloud storage. The HTML file you're using is the whole app.</p>
+
+    <h2>Why seven shapes</h2>
+    <p>The shadow takes on distinct geometric characters depending on which body system is dysregulated. Sharp-edged aggression looks different from flatline shutdown, which looks different from spiral-chasing addiction, which looks different from tower-like mask-maintenance.</p>
+    <p>Each shape corresponds to a specific pattern documented in peer-reviewed stress and shadow research:</p>
+    <ul>
+      <li><strong>Tetrahedron (Sharp Edge)</strong> — chronic sympathetic activation · Friedman &amp; Rosenman (1959), Williams et al. (2000)</li>
+      <li><strong>Spiral (Chase)</strong> — reward-seeking without completion · Koob &amp; Volkow (2016)</li>
+      <li><strong>Sphere (Flood)</strong> — gut-brain override, unbounded intake · Dallman et al. (2003)</li>
+      <li><strong>Line (Flatline)</strong> — parasympathetic collapse · Porges (2011, Polyvagal Theory)</li>
+      <li><strong>Cone (Squeeze)</strong> — scarcity mindset narrowing executive function · Mani et al. (2013)</li>
+      <li><strong>Mirror (Comparison)</strong> — social-status pain circuit · Takahashi et al. (2009)</li>
+      <li><strong>Tower (Mask)</strong> — invulnerability posture · Reinhard et al. (2012)</li>
+    </ul>
+
+    <h2>Why an exercise instead of advice</h2>
+    <p>Advice moves through the thinking mind. The shapes live in the body. So the response is a body practice, not a thought experiment. Each shape has a specific breath or vocal exercise that moves the associated body system in the opposite direction of the drift. Two minutes. No equipment. No professional required.</p>
+
+    <h2>What the shapes have in common</h2>
+    <blockquote>Every shape softens when someone else is in the room with you.</blockquote>
+    <p>The exercises help you meet yourself. But every one of the seven shapes is the shape of a system that's been running alone too long. The most powerful correction — for all seven — is connection with another person. ShadowCompass doesn't replace that. It just gives you a two-minute practice you can do while you wait for it, or as you build it.</p>
+
+    <h2>How it's built</h2>
+    <p>One HTML file. Vanilla JS. IndexedDB for the journal. Service worker for offline. No frameworks, no CDN dependencies, no external requests.</p>
+    <p>Source: <a href="https://github.com/sjgant80-hub/shadowcompass">github.com/sjgant80-hub/shadowcompass</a> · MIT-licensed. Fork it. Host it. Save the HTML to your disk. It runs forever without the internet.</p>
+
+    <h2>What it isn't</h2>
+    <ul>
+      <li>Not a diagnosis</li>
+      <li>Not therapy</li>
+      <li>Not a substitute for professional care</li>
+      <li>Not a crisis service — if you're in crisis, call <a href="https://www.samaritans.org/">Samaritans (UK) 116 123</a> or <a href="https://988lifeline.org/">988 (US)</a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="view" id="view-faq">
+  <h2>Frequently asked</h2>
+  <div style="margin-top:24px" id="faq-list"></div>
+
+  <h2 style="margin-top:48px">Glossary</h2>
+  <dl style="margin-top:20px">
+    <div class="glossary-item"><dt>Shape</dt><dd>A geometric character a shadow pattern takes when it settles in the body. Not a label. Not an identity. A drift you can rotate back.</dd></div>
+    <div class="glossary-item"><dt>Sonar</dt><dd>The seven-slider diagnostic. Seven statements, seven slides, one dominant shape identified.</dd></div>
+    <div class="glossary-item"><dt>Exercise</dt><dd>One breath or vocal practice matched to a shape. Two minutes. Body-first, not mind-first.</dd></div>
+    <div class="glossary-item"><dt>Journal</dt><dd>The local IndexedDB record of every sonar you've kept. Never leaves your device. Exportable to JSON.</dd></div>
+    <div class="glossary-item"><dt>Connection frame</dt><dd>The one thing all seven shapes share: they're what happens when a system runs alone too long. Every shape softens with another person present.</dd></div>
+    <div class="glossary-item"><dt>Sovereign</dt><dd>Runs on your device. Nothing leaves. No account. No SaaS lock-in. You own the tool the same way you own a book.</dd></div>
+  </dl>
+</section>
+
+</main>
+
+<footer>
+  <div>◬ ShadowCompass · MIT · <a href="https://github.com/sjgant80-hub/shadowcompass">GitHub</a> · <a href="https://ai-nativesolutions.com">AI-Native Solutions</a></div>
+  <div class="foot-links">
+    <a href="llms.txt">llms.txt</a>
+    <a href="#" onclick="switchView('about');return false">About</a>
+    <a href="#" onclick="switchView('faq');return false">FAQ</a>
+    <a href="https://sjgant80-hub.github.io/fallmarket/">FallMarket</a>
+  </div>
+  <div style="margin-top:14px;color:var(--dim);font-size:10.5px">Not medical advice. Reflection tool only. UK crisis: 116 123 · US: 988</div>
+</footer>
+
+</div>
+
+<script>
+const SHAPES = [
+  {
+    id: 'tetra', glyph: '▲', name: 'Sharp Edge', latin: 'Tetrahedron',
+    tag: 'the shape of a system braced for attack',
+    q: 'Small things feel like attacks. I\'m ready to snap at anything.',
+    helper: 'Chronic activation. Everything reads as a threat. The body has been in fight-mode long enough that it\'s become the baseline.',
+    what: 'The Sharp Edge shows up when the fight-or-flight system has been running long enough that it can\'t stand down. Adrenaline stays elevated. Blood pressure recalibrates upward. The heart tightens instead of opening. Every interaction becomes a potential fight.',
+    research: {
+      cite: 'Friedman & Rosenman (1959) — Type A personality (time urgency, hostility, competitiveness) associated with roughly 2× risk of coronary heart disease. Williams et al. (2000) confirmed hostility as an independent cardiovascular predictor.',
+      short: 'Two decades of cardiology research show chronic sympathetic activation carves the body over time. This isn\'t moral. It\'s cellular.'
+    },
+    exercise: {
+      name: 'The long exhale hiss',
+      steps: [
+        'Sit or stand comfortably. Feet on the floor.',
+        'Breathe in through the nose for a count of 4.',
+        'Exhale through the teeth as a long "shhhhh" sound.',
+        'Make the exhale twice as long as the inhale — count 8 or more.',
+        'Feel the diaphragm push at the end. That\'s the vagal brake.',
+        'Repeat 5 times. The sharp edge is what steam looks like before it leaves.'
+      ]
+    }
+  },
+  {
+    id: 'spiral', glyph: '◎', name: 'The Chase', latin: 'Spiral',
+    tag: 'the shape of orbit without arrival',
+    q: 'I keep reaching for something and never landing. It\'s always almost, never here.',
+    helper: 'A loop. Something you want that stays just out of reach. Each attempt gets closer, but the arrival never comes.',
+    what: 'The Chase is the wanting circuit running without the having circuit. Dopamine drives approach. Oxytocin provides arrival. Without the second one firing, the system orbits — approach, near-contact, retreat, approach — indefinitely. The target can be a substance, a person, a scroll, a metric.',
+    research: {
+      cite: 'Koob & Volkow (2016, Neuropsychopharmacology) — addiction as dysregulation of the reward, stress, and executive systems. The pattern is identical across targets: same neurology whether the object is a drug, a person, or a screen.',
+      short: 'The spiral isn\'t weakness. It\'s the reward system running one half of its normal loop.'
+    },
+    exercise: {
+      name: 'Chest-voice grounding',
+      steps: [
+        'Stand with both feet firmly on the floor.',
+        'Feel where your voice sits — most of the day it lives in the throat or head.',
+        'Drop it. Say the word "here" from your lowest chest register.',
+        'Not louder — deeper. Feel it in your sternum, not your throat.',
+        'Repeat 3 times, letting each one drop lower.',
+        'Arrival is a sound before it\'s a thought. The spiral collapses to a point when the voice finds its floor.'
+      ]
+    }
+  },
+  {
+    id: 'sphere', glyph: '●', name: 'The Flood', latin: 'Sphere',
+    tag: 'the shape of taking in without a limit',
+    q: 'I keep consuming — food, scroll, drink, content — past what I actually want.',
+    helper: 'The intake system has overridden the deciding system. The mouth (or hands, or eyes) is receiving faster than the mind can call halt.',
+    what: 'The Flood shows up when the gut-brain axis captures executive control. Ghrelin signals hunger. Insulin signals capacity. When stress raises cortisol, both go haywire — the body reaches for calorie-dense comfort input, and the "I\'ve had enough" signal doesn\'t reach the frontal cortex in time. The sphere inflates.',
+    research: {
+      cite: 'Dallman et al. (2003, PNAS) — chronic stress drives comfort-food intake via glucocorticoid and insulin interaction. The pathway is hormonal, not volitional. Willpower is happening in the wrong system.',
+      short: 'The flood isn\'t about discipline. It\'s a hormonal capture. You\'re not weak. You\'re architecturally outnumbered.'
+    },
+    exercise: {
+      name: 'The sealed hum',
+      steps: [
+        'Bring your lips together and seal them lightly.',
+        'Take a slow breath in through the nose.',
+        'Hum a low steady "mmmmm" through the closed mouth for the whole exhale.',
+        'Feel the vibration in your lips, cheekbones, and skull.',
+        'Repeat 5 times.',
+        'The physical act of closing the mouth interrupts the intake loop before the executive system needs to intervene.'
+      ]
+    }
+  },
+  {
+    id: 'line', glyph: '—', name: 'Flatline', latin: 'Line',
+    tag: 'the shape of a system that gave up oscillating',
+    q: 'I\'m not upset. I\'m just... gone. Nothing moves me. Nothing pulls.',
+    helper: 'This isn\'t calm — calm has aliveness in it. This is absence. The signal went quiet not because the storm passed but because the system stopped generating waves.',
+    what: 'Flatline is parasympathetic shutdown, not parasympathetic rest. In polyvagal terms, it\'s the dorsal branch (immobilization) firing, not the ventral branch (safe engagement). Cortisol stays elevated but flat — the normal morning-high, evening-low rhythm disappears into a monotone drone. Motivation circuits deactivate. Heart rate variability drops toward zero.',
+    research: {
+      cite: 'Porges (2011) — Polyvagal Theory distinguishes ventral vagal (safe engagement, HRV present, connection possible) from dorsal vagal (shutdown, HRV suppressed, immobilization). Flatline is dorsal.',
+      short: 'The flatline is a nervous-system state, not a personality trait. And it\'s the one stress class where the release goes upward, not downward.'
+    },
+    exercise: {
+      name: 'The sharp inhale',
+      steps: [
+        'Take a sudden, sharp inhale through the mouth — a gasp. Like you just remembered something.',
+        'Hold for 1 count.',
+        'Release with a short, sharp "heh!" sound. Louder than feels natural.',
+        'Do 3–5 in a row. This is the only exercise here that goes UP instead of down.',
+        'Then let the breath settle. Feel any tingle, any lift, any wave.',
+        'The flatline needs a spike to remember it\'s a waveform. Use this only when the flatline shape scored high.'
+      ]
+    }
+  },
+  {
+    id: 'cone', glyph: '◄', name: 'The Squeeze', latin: 'Cone',
+    tag: 'the shape of narrowing under scarcity',
+    q: 'I don\'t have enough — of money, time, energy, attention — and it\'s all I can think about.',
+    helper: 'A shortage signal has captured your thinking. Executive function is being spent on monitoring the lack instead of planning, creating, or connecting.',
+    what: 'The Squeeze is the amygdala capturing the prefrontal cortex with a continuous "not enough" signal. The available cognitive bandwidth narrows around the scarce resource. You get better at monitoring the shortfall and worse at everything else — planning, generosity, perspective. The cone tapers.',
+    research: {
+      cite: 'Mani, Mullainathan, Shafir & Zhao (2013, Science) — scarcity mindset reduces measured IQ by approximately 13 points and executive function by comparable magnitude. The cognitive tax of scarcity is like losing a full night of sleep, every day.',
+      short: 'You\'re not less capable. You\'re running a monitoring task in the background that\'s taxing the same hardware.'
+    },
+    exercise: {
+      name: 'Wide-open vowels',
+      steps: [
+        'Open your mouth as wide as it will comfortably go.',
+        'Breathe in slowly, feeling the aperture.',
+        'Exhale on a long, sustained "ahhhhhh" — the roundest, widest vowel you can make.',
+        'Follow it with "ohhhhh" — same width, deeper pitch.',
+        'Then "eyyyyy" and "ohhhh" again.',
+        'Do 4 rounds. Widening the mouth is the geometric opposite of the narrowing. Open, release, open, release.'
+      ]
+    }
+  },
+  {
+    id: 'mirror', glyph: '◇', name: 'Comparison', latin: 'Mirror',
+    tag: 'the shape of having no anchor except other people',
+    q: 'I keep measuring myself against other people. I can\'t tell what I want anymore — only what they have.',
+    helper: 'The reference point has moved outside you. Every value is comparative. There\'s no still center, only reflections bouncing off other reflections.',
+    what: 'The Mirror is chronic activation of the anterior cingulate cortex — the same region that processes physical pain. Social comparison literally hurts. The modern feed pours comparison into that circuit continuously. You end up defining yourself by distance from other people\'s positions instead of by your own coordinates.',
+    research: {
+      cite: 'Takahashi et al. (2009, Science) — envious responses to superior peers activate the anterior cingulate cortex; schadenfreude at their misfortunes activates the ventral striatum (reward). The comparison circuit is hardwired.',
+      short: 'The mirror isn\'t a moral failure. It\'s the ACC doing what it evolved to do, plugged into an information environment it wasn\'t built for.'
+    },
+    exercise: {
+      name: 'Eyes-closed silence',
+      steps: [
+        'Close your eyes fully. Cover them with your palms if you can.',
+        'Sit for 60 seconds in silence. No music, no words, no scroll.',
+        'When you notice the urge to open them and check something — anything — notice, then keep them closed.',
+        'From behind the closed eyes, say the word "me" out loud, once, softly.',
+        'Feel where you hear it from. Not what you look like. Where you sound from.',
+        'The mirror breaks when you close your eyes and hear yourself from inside instead of seeing yourself from outside.'
+      ]
+    }
+  },
+  {
+    id: 'tower', glyph: '▯', name: 'The Mask', latin: 'Tower',
+    tag: 'the shape of maximum posture, minimum letting-in',
+    q: 'I can\'t let anyone see what\'s underneath. Everything has to look fine, and it\'s exhausting.',
+    helper: 'The persona has become the primary structure. Every interaction is performed. Vulnerability is architecturally sealed. It costs enormous energy to maintain.',
+    what: 'The Tower is default-mode-network hyperactivation driving continuous self-narrative curation. Every response is planned. Every gap is hidden. Testosterone and cortisol co-fire — dominance signaling under sustained threat. The persona goes up; the foundation is not proportionally strengthened. Social isolation grows because vulnerability, which is what lets connection through, has been sealed off.',
+    research: {
+      cite: 'Reinhard et al. (2012, PLoS ONE) — narcissistic grandiosity correlates with elevated cortisol reactivity. Appearing invulnerable is the most physiologically expensive state to sustain.',
+      short: 'The tower is the most expensive shape. Not moral cost — metabolic cost. It\'s literally the state you burn the most fuel to hold.'
+    },
+    exercise: {
+      name: 'The whispered ask',
+      steps: [
+        'Find somewhere private — even a bathroom will do.',
+        'Sit or stand still.',
+        'Whisper the word "help" — as quietly as you can while still forming the sound.',
+        'It has to be a whisper. Any louder and the tower is still speaking.',
+        'Say it again, quieter still. Then a third time, quieter still.',
+        'Then hum a low steady note from as low in your voice as you can reach.',
+        'The whisper is critical because the tower cannot shout vulnerability. This exercise is how the tower gracefully lowers instead of catastrophically falling.'
+      ]
+    }
+  }
+];
+
+const FAQ_ITEMS = [
+  { q: 'What is ShadowCompass?', a: 'A private shadow compass. You answer seven short slider questions. It identifies which of seven shadow patterns fits you strongest right now and gives you one specific breath or vocal exercise to try.' },
+  { q: 'Does my data leave my device?', a: 'No. ShadowCompass runs entirely in the browser. There\'s no server, no account, no telemetry. Your journal lives in IndexedDB on this device. You can export it or wipe it any time.' },
+  { q: 'Is this medical advice?', a: 'No. ShadowCompass is a reflection tool grounded in published stress and shadow research. It is not a diagnosis, not therapy, and not a substitute for professional care. If you\'re in crisis, contact a qualified professional or emergency services.' },
+  { q: 'Why shapes instead of feelings?', a: 'Feelings are labels the mind assigns. Shapes are patterns the body is already in. It\'s easier to notice you\'re standing like a tower than to name the emotion driving it. Shapes are also easier to change than identities — you can rotate a shape.' },
+  { q: 'Why only one exercise per shape?', a: 'Because one exercise you\'ll actually do beats seven you\'ll bookmark and forget. Each shape has a specific vocal or breath practice that moves the associated body system in the opposite direction of the drift.' },
+  { q: 'What if I score high on multiple shapes?', a: 'That\'s normal — most people carry a blend. ShadowCompass surfaces the strongest one and lists the others below with their scores. Start with the dominant one. Come back tomorrow.' },
+  { q: 'Can I use this offline?', a: 'Yes. Save the HTML file to your disk (or install as a PWA). It runs with no internet. Your journal still saves locally.' },
+  { q: 'Why MIT?', a: 'Because a wellness tool that could disappear when a company folds isn\'t really a tool. MIT means anyone can fork it, host it, or run it from disk forever. It outlasts us.' },
+  { q: 'Where does the seven-shape framework come from?', a: 'A long observation across published stress and shadow research: chronic stress takes on distinct geometric characters depending on which system is dysregulated. Each shape maps to peer-reviewed studies cited inside the app.' },
+  { q: 'Who made this?', a: 'AI-Native Solutions, a sovereign-software publisher. Every listing MIT-licensed, Ed25519-signed, benchmarkable. See our other tools at FallMarket.' }
+];
+
+const STATE = { scores: {}, currentResult: null };
+const DB_NAME = 'shadowcompass', DB_VERSION = 1;
+
+function openDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onupgradeneeded = () => {
+      const db = req.result;
+      if (!db.objectStoreNames.contains('entries')) {
+        const store = db.createObjectStore('entries', { keyPath: 'id', autoIncrement: true });
+        store.createIndex('by_date', 'date');
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function saveEntry(entry) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('entries', 'readwrite');
+    const req = tx.objectStore('entries').add(entry);
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function listEntries() {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('entries', 'readonly');
+    const req = tx.objectStore('entries').getAll();
+    req.onsuccess = () => resolve(req.result.sort((a, b) => b.date - a.date));
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function deleteEntry(id) {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('entries', 'readwrite');
+    const req = tx.objectStore('entries').delete(id);
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function wipeAllEntries() {
+  const db = await openDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction('entries', 'readwrite');
+    const req = tx.objectStore('entries').clear();
+    req.onsuccess = () => resolve();
+    req.onerror = () => reject(req.error);
+  });
+}
+
+function switchView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  const view = document.getElementById('view-' + name);
+  const tab = document.querySelector('.tab[data-view=' + name + ']');
+  if (view) view.classList.add('on');
+  if (tab) tab.classList.add('on');
+  if (name === 'sonar') renderProbes();
+  if (name === 'journal') renderJournal();
+  if (name === 'faq') renderFaq();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => switchView(t.dataset.view)));
+
+function renderProbes() {
+  const wrap = document.getElementById('probes');
+  wrap.innerHTML = SHAPES.map((s, i) => `
+    <div class="probe" id="probe-${s.id}">
+      <div class="probe-head">
+        <div>
+          <div class="probe-num">Question ${i + 1} of 7 · ${s.latin}</div>
+          <div class="probe-shape">${s.glyph}</div>
+        </div>
+      </div>
+      <q>${s.q}</q>
+      <p class="helper">${s.helper}</p>
+      <div class="slider-wrap">
+        <div class="slider-row">
+          <input type="range" min="0" max="10" value="${STATE.scores[s.id] ?? 0}" data-shape="${s.id}" oninput="updateSlider(this)">
+          <div class="slider-val" id="val-${s.id}">${STATE.scores[s.id] ?? 0}</div>
+        </div>
+        <div class="slider-labels">
+          <span>not me</span>
+          <span>somewhat</span>
+          <span>very much me</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateSlider(el) {
+  const shape = el.dataset.shape;
+  const val = parseInt(el.value, 10);
+  STATE.scores[shape] = val;
+  document.getElementById('val-' + shape).textContent = val;
+  document.getElementById('probe-' + shape).classList.toggle('active', val >= 6);
+}
+
+function resetSonar() {
+  STATE.scores = {};
+  renderProbes();
+}
+
+function scoreSonar() {
+  const scored = SHAPES.map(s => ({ ...s, score: STATE.scores[s.id] ?? 0 })).sort((a, b) => b.score - a.score);
+  if (scored[0].score === 0) {
+    alert('Move at least one slider to reflect.');
+    return;
+  }
+  const dominant = scored[0];
+  const entry = { date: Date.now(), dominant_id: dominant.id, scores: { ...STATE.scores } };
+  STATE.currentResult = { entry, scored };
+  renderResult();
+  switchView('result');
+  saveEntry(entry).catch(e => console.warn('journal save failed', e));
+}
+
+function renderResult() {
+  if (!STATE.currentResult) return;
+  const { scored } = STATE.currentResult;
+  const d = scored[0];
+  const others = scored.slice(1).filter(s => s.score > 0);
+  const wrap = document.getElementById('result-content');
+  wrap.innerHTML = `
+    <div class="result-hero">
+      <div class="result-shape-big">${d.glyph}</div>
+      <div class="result-name">${d.name}</div>
+      <div class="result-latin">${d.latin}</div>
+      <div class="result-tag">${d.tag}</div>
+      <div class="result-score">score ${d.score} / 10</div>
+    </div>
+
+    <div class="result-section">
+      <h3>What this shape is</h3>
+      <p>${d.what}</p>
+    </div>
+
+    <div class="result-section">
+      <h3>What the research says</h3>
+      <p>${d.research.short}</p>
+      <div class="cite">${d.research.cite}</div>
+    </div>
+
+    <div class="result-section">
+      <h3>Your exercise</h3>
+      <div class="exercise-box">
+        <div class="exercise-name">${d.exercise.name}</div>
+        <ol class="exercise-steps">${d.exercise.steps.map(s => `<li>${s}</li>`).join('')}</ol>
+      </div>
+    </div>
+
+    <div class="connection-frame">
+      <h3>The frame that holds all seven</h3>
+      <p>Every one of these shapes is what happens when a system runs alone too long. The exercise helps you meet yourself. But the deepest correction — for all seven shapes — is connection with another person. Do the two-minute practice. Then reach out to someone.</p>
+    </div>
+
+    ${others.length ? `
+    <div class="other-shapes">
+      <h3>Your other shapes today</h3>
+      <div class="other-shapes-list">
+        ${others.map(s => `<div class="mini-shape"><span class="g">${s.glyph}</span><span>${s.name}</span><span class="s">${s.score}/10</span></div>`).join('')}
+      </div>
+    </div>` : ''}
+
+    <div class="result-actions">
+      <button class="btn primary" onclick="switchView('journal')">Go to journal →</button>
+      <button class="btn" onclick="resetSonar();switchView('sonar')">Take again</button>
+      <button class="btn" onclick="switchView('home')">Back home</button>
+    </div>
+  `;
+}
+
+async function renderJournal() {
+  const wrap = document.getElementById('journal-content');
+  const tl = document.getElementById('timeline-content');
+  try {
+    const entries = await listEntries();
+    if (!entries.length) {
+      wrap.innerHTML = `
+        <div class="journal-empty">
+          <p>No reflections yet. The mirror is empty until you look into it.</p>
+          <button class="btn primary" onclick="switchView('sonar')">Take your first sonar →</button>
+        </div>`;
+      tl.innerHTML = '';
+      return;
+    }
+    wrap.innerHTML = entries.map(e => {
+      const shape = SHAPES.find(s => s.id === e.dominant_id) || {};
+      return `<div class="entry">
+        <div class="shape-glyph">${shape.glyph || '◬'}</div>
+        <div class="entry-body">
+          <h4>${shape.name || 'Unknown'}</h4>
+          <div class="meta">${new Date(e.date).toLocaleString()} · dominant score ${e.scores[e.dominant_id] || 0}/10</div>
+        </div>
+        <div class="entry-actions">
+          <button class="icon-btn" onclick="removeEntry(${e.id})">delete</button>
+        </div>
+      </div>`;
+    }).join('');
+    const counts = {};
+    SHAPES.forEach(s => counts[s.id] = 0);
+    entries.forEach(e => counts[e.dominant_id] = (counts[e.dominant_id] || 0) + 1);
+    const max = Math.max(...Object.values(counts), 1);
+    tl.innerHTML = `
+      <div class="timeline">
+        <h3>Shape frequency · your last ${entries.length} reflections</h3>
+        <div class="tl-grid">
+          ${SHAPES.map(s => {
+            const c = counts[s.id];
+            const h = Math.round((c / max) * 120);
+            return `<div class="tl-col">
+              <div class="tl-bar" style="height:${h}px" title="${s.name}: ${c}"></div>
+              <div class="tl-label">${s.glyph}</div>
+              <div class="tl-count">${c}</div>
+            </div>`;
+          }).join('')}
+        </div>
+      </div>`;
+  } catch (e) {
+    wrap.innerHTML = '<p style="color:var(--coral)">Journal unavailable: ' + e.message + '</p>';
+  }
+}
+
+async function removeEntry(id) {
+  if (!confirm('Delete this reflection? This is permanent.')) return;
+  await deleteEntry(id);
+  renderJournal();
+}
+
+async function wipeJournal() {
+  if (!confirm('Wipe ALL journal entries? This is permanent and cannot be undone.')) return;
+  await wipeAllEntries();
+  renderJournal();
+}
+
+async function exportJournal() {
+  const entries = await listEntries();
+  const blob = new Blob([JSON.stringify({ tool: 'shadowcompass', exported_at: new Date().toISOString(), entries }, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `shadowcompass-journal-${new Date().toISOString().slice(0, 10)}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importJournal() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json,application/json';
+  input.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      if (!data.entries || !Array.isArray(data.entries)) throw new Error('Not a ShadowCompass export');
+      for (const entry of data.entries) {
+        const clean = { date: entry.date, dominant_id: entry.dominant_id, scores: entry.scores };
+        await saveEntry(clean);
+      }
+      alert(`Imported ${data.entries.length} entries.`);
+      renderJournal();
+    } catch (err) {
+      alert('Import failed: ' + err.message);
+    }
+  };
+  input.click();
+}
+
+function renderFaq() {
+  const wrap = document.getElementById('faq-list');
+  wrap.innerHTML = FAQ_ITEMS.map(f => `
+    <details class="faq-item">
+      <summary>${f.q}</summary>
+      <p>${f.a}</p>
+    </details>
+  `).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderProbes();
+  renderFaq();
+});
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(e => console.log('SW register skipped:', e.message)));
+}
+
+window.switchView = switchView;
+window.scoreSonar = scoreSonar;
+window.resetSonar = resetSonar;
+window.updateSlider = updateSlider;
+window.removeEntry = removeEntry;
+window.wipeJournal = wipeJournal;
+window.exportJournal = exportJournal;
+window.importJournal = importJournal;
+</script>
+
+</body>
+</html>

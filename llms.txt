@@ -1,0 +1,39 @@
+# ShadowCompass
+
+> ShadowCompass is a sovereign browser-native shadow compass. Seven short slider questions, one dominant shadow pattern identified, one prescribed breath or vocal exercise per pattern. Runs entirely in the browser via IndexedDB — no server, no account, no telemetry. MIT-licensed. Built and maintained by AI-Native Solutions.
+
+ShadowCompass is not therapy, not diagnosis, and not a substitute for professional care. It is a two-minute self-reflection tool grounded in published peer-reviewed research. Every result cites the study behind the pattern. Every result comes with one specific body-first exercise (breath or vocalization) to try immediately.
+
+## Canonical URL
+
+https://sjgant80-hub.github.io/shadowcompass/
+
+## What it is
+
+- **A shadow compass** — seven statements, seven sliders, one dominant pattern output, plus scored blend across the other six.
+- **A body-first practice** — each pattern has one prescribed breath or vocal exercise. No advice, no coaching, no chat.
+- **A private journal** — every reflection you keep is stored in IndexedDB on your device. Nothing on any server.
+- **A sovereign tool** — one HTML file, vanilla JS, runs offline as a PWA, MIT-licensed, forkable, fully auditable.
+
+## The seven patterns
+
+1. **Tetrahedron · Sharp Edge** — chronic sympathetic activation. Research: Friedman & Rosenman (1959), Williams et al. (2000). Exercise: long exhale hiss.
+2. **Spiral · The Chase** — reward-seeking without completion. Research: Koob & Volkow (2016). Exercise: chest-voice grounding.
+3. **Sphere · The Flood** — gut-brain override, unbounded intake. Research: Dallman et al. (2003). Exercise: sealed hum.
+4. **Line · Flatline** — dorsal vagal shutdown. Research: Porges (2011). Exercise: sharp inhale + activation vocalization.
+5. **Cone · The Squeeze** — scarcity mindset narrowing executive function. Research: Mani et al. (2013). Exercise: wide-open vowels.
+6. **Mirror · Comparison** — social-status pain (ACC circuit). Research: Takahashi et al. (2009). Exercise: eyes-closed silence.
+7. **Tower · The Mask** — invulnerability posture. Research: Reinhard et al. (2012). Exercise: whispered "help".
+
+The unifying frame: every pattern is what happens when a system runs alone too long. The exercises help you meet yourself. The deepest correction for all seven is connection with another person.
+
+## Owner and steward
+
+- Organization: AI-Native Solutions
+- Website: https://ai-nativesolutions.com
+- GitHub: https://github.com/sjgant80-hub
+- Marketplace: https://sjgant80-hub.github.io/fallmarket/
+
+## License
+
+MIT. See https://github.com/sjgant80-hub/shadowcompass/blob/main/LICENSE.
