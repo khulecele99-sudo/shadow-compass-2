@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ShadowCompass · the sovereign shadow compass · seven shapes · runs in your browser</title>
-<meta name="description" content="ShadowCompass is a sovereign shadow compass. Seven shape questions, one shape result, one prescribed breathing or vocal exercise. Runs in your browser. Nothing leaves your device. MIT-licensed. Free forever.">
+<title>ShadowCompass · a private self-reflection journey · seven shapes · runs in your browser</title>
+<meta name="description" content="ShadowCompass is a private self-reflection tool. Explore seven patterns through changing questions, personal reflection and gentle exercises. Not a diagnosis or therapy.">
 <meta name="keywords" content="shadow compass, self-reflection tool, sovereign wellness app, private mental health tool, browser-native therapy tool, offline stress test, MIT wellness, seven shapes, AI-Native Solutions, ShadowCompass">
 <meta name="author" content="AI-Native Solutions">
 <meta name="theme-color" content="#030308">
@@ -57,7 +57,7 @@
   "mainEntity": [
     { "@type": "Question", "name": "What is ShadowCompass?", "acceptedAnswer": { "@type": "Answer", "text": "A private shadow compass. You answer seven short questions, it identifies which of seven shadow patterns fits you right now, and prescribes one breathing or vocal exercise for that shape." } },
     { "@type": "Question", "name": "Does my data leave my device?", "acceptedAnswer": { "@type": "Answer", "text": "No. The app runs entirely in your browser. There is no server, no account, no telemetry. Your journal lives in IndexedDB on your device. You can export it or wipe it any time." } },
-    { "@type": "Question", "name": "Is this medical advice?", "acceptedAnswer": { "@type": "Answer", "text": "No. ShadowCompass is a reflection tool grounded in published stress and shadow research. It is not a diagnosis, not therapy, and not a substitute for professional care. If you're in crisis, contact a qualified professional or emergency services." } },
+    { "@type": "Question", "name": "Is this medical advice?", "acceptedAnswer": { "@type": "Answer", "text": "No. ShadowCompass is a reflection tool grounded in general ideas from psychology and self-development. Its seven patterns are an original reflection framework, not a validated assessment. It is not a diagnosis, not therapy, and not a substitute for professional care. If you're in crisis, contact a qualified professional or emergency services." } },
     { "@type": "Question", "name": "What are the seven shapes?", "acceptedAnswer": { "@type": "Answer", "text": "Tetrahedron (sharp edge), Spiral (chase), Sphere (flood), Line (flatline), Cone (squeeze), Mirror (comparison), Tower (mask). Each corresponds to a distinct shadow pattern documented in the published research linked in the app." } },
     { "@type": "Question", "name": "Why shapes instead of labels?", "acceptedAnswer": { "@type": "Answer", "text": "Because the same energy takes different geometric forms depending on where it's stuck. A shape is easier to notice, name, and change than a label. Shapes rotate; identities don't." } }
   ]
@@ -223,20 +223,11 @@ footer .foot-links{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;m
 .disclaimer{max-width:640px;margin:32px auto 0;padding:16px 20px;background:var(--surface);border-left:2px solid var(--amber);color:var(--muted);font-size:13px;line-height:1.6;border-radius:4px}
 .disclaimer strong{color:var(--amber);font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase}
 
-/* Mobile layout refinements */
-.topbar{flex-wrap:wrap;gap:10px}
-.tabs{display:flex;gap:6px;max-width:100%;overflow-x:auto;white-space:nowrap;-webkit-overflow-scrolling:touch}
-.tab{flex:0 0 auto}
-@media(max-width:700px){
-.app{padding-left:14px;padding-right:14px}.topbar{align-items:flex-start}
-.brand{flex-wrap:wrap}.tabs{width:100%;padding-bottom:5px}
-.hero{padding:36px 0 24px}.hero-shapes{gap:12px;flex-wrap:wrap}
-.promise{grid-template-columns:1fr;gap:18px}
-.ctas,.sonar-actions,.journal-controls{gap:10px;flex-wrap:wrap}
-.ctas .btn,.sonar-actions .btn{flex:1 1 100%}
-button,.btn{min-height:44px}
-}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.question-progress{height:4px;background:var(--line2);border-radius:9px;overflow:hidden;margin:22px 0 14px}
+.question-progress>div{height:100%;background:var(--gold,#c9a84c);transition:width .2s ease}
+.question-nav{display:flex;justify-content:space-between;gap:12px;margin:16px 0 28px}
+.question-nav button:disabled{opacity:.35;cursor:not-allowed}
+.probe-num{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:8px}
 
 </style>
 </head>
@@ -313,14 +304,13 @@ button,.btn{min-height:44px}
 <section class="view" id="view-sonar">
   <div class="sonar-intro">
     <h2>How much does each of these <em>feel like you right now?</em></h2>
-    <p style="color:var(--muted);font-size:15px;max-width:600px;margin:14px auto 0;line-height:1.6">Move each slider to how much the statement fits you today. No wrong answers. This isn't a test. It's a mirror.</p>
+    <p style="color:var(--muted);font-size:15px;max-width:600px;margin:14px auto 0;line-height:1.6">Explore one question at a time. Your answers are prompts for reflection, not a test or diagnosis. There are no right or wrong answers.</p>
   </div>
 
   <div id="probes"></div>
 
-  <div class="sonar-actions">
-    <button class="btn primary" onclick="scoreSonar()">Reflect →</button>
-    <button class="btn" onclick="resetSonar()">Reset sliders</button>
+  <div class="sonar-actions" id="sonar-actions">
+    <button class="btn" onclick="resetSonar()">Start a fresh journey</button>
   </div>
 </section>
 
@@ -347,7 +337,7 @@ button,.btn{min-height:44px}
 <section class="view" id="view-about">
   <div class="prose">
     <h2>What ShadowCompass is</h2>
-    <p>ShadowCompass is a private, browser-native shadow compass. You answer seven short slider questions. It tells you which of seven distinct shadow patterns fits you strongest right now, gives you the published research behind that pattern, and prescribes one specific breath or vocal exercise to try.</p>
+    <p>ShadowCompass is a private, browser-native shadow compass. You answer seven short slider questions. It offers a reflective lens on seven patterns, shares ideas for further exploration, and suggests a gentle exercise you may choose to try.</p>
     <p>That's it. There's no chat, no algorithm learning about you, no account, no telemetry, no cloud storage. The HTML file you're using is the whole app.</p>
 
     <h2>Why seven shapes</h2>
@@ -364,7 +354,7 @@ button,.btn{min-height:44px}
     </ul>
 
     <h2>Why an exercise instead of advice</h2>
-    <p>Advice moves through the thinking mind. The shapes live in the body. So the response is a body practice, not a thought experiment. Each shape has a specific breath or vocal exercise that moves the associated body system in the opposite direction of the drift. Two minutes. No equipment. No professional required.</p>
+    <p>Advice moves through the thinking mind. The shapes are metaphors for patterns people may notice in their thoughts, feelings and behaviour. So the response is a body practice, not a thought experiment. Each shape has a specific breath or vocal exercise that moves the associated body system in the opposite direction of the drift. Two minutes. No equipment. No professional required.</p>
 
     <h2>What the shapes have in common</h2>
     <blockquote>Every shape softens when someone else is in the room with you.</blockquote>
@@ -391,7 +381,7 @@ button,.btn{min-height:44px}
   <h2 style="margin-top:48px">Glossary</h2>
   <dl style="margin-top:20px">
     <div class="glossary-item"><dt>Shape</dt><dd>A geometric character a shadow pattern takes when it settles in the body. Not a label. Not an identity. A drift you can rotate back.</dd></div>
-    <div class="glossary-item"><dt>Sonar</dt><dd>The seven-slider diagnostic. Seven statements, seven slides, one dominant shape identified.</dd></div>
+    <div class="glossary-item"><dt>Sonar</dt><dd>The seven-question reflection. Seven statements, seven slides, one dominant shape identified.</dd></div>
     <div class="glossary-item"><dt>Exercise</dt><dd>One breath or vocal practice matched to a shape. Two minutes. Body-first, not mind-first.</dd></div>
     <div class="glossary-item"><dt>Journal</dt><dd>The local IndexedDB record of every sonar you've kept. Never leaves your device. Exportable to JSON.</dd></div>
     <div class="glossary-item"><dt>Connection frame</dt><dd>The one thing all seven shapes share: they're what happens when a system runs alone too long. Every shape softens with another person present.</dd></div>
@@ -576,7 +566,7 @@ const SHAPES = [
 const FAQ_ITEMS = [
   { q: 'What is ShadowCompass?', a: 'A private shadow compass. You answer seven short slider questions. It identifies which of seven shadow patterns fits you strongest right now and gives you one specific breath or vocal exercise to try.' },
   { q: 'Does my data leave my device?', a: 'No. ShadowCompass runs entirely in the browser. There\'s no server, no account, no telemetry. Your journal lives in IndexedDB on this device. You can export it or wipe it any time.' },
-  { q: 'Is this medical advice?', a: 'No. ShadowCompass is a reflection tool grounded in published stress and shadow research. It is not a diagnosis, not therapy, and not a substitute for professional care. If you\'re in crisis, contact a qualified professional or emergency services.' },
+  { q: 'Is this medical advice?', a: 'No. ShadowCompass is a reflection tool grounded in general ideas from psychology and self-development. Its seven patterns are an original reflection framework, not a validated assessment. It is not a diagnosis, not therapy, and not a substitute for professional care. If you\'re in crisis, contact a qualified professional or emergency services.' },
   { q: 'Why shapes instead of feelings?', a: 'Feelings are labels the mind assigns. Shapes are patterns the body is already in. It\'s easier to notice you\'re standing like a tower than to name the emotion driving it. Shapes are also easier to change than identities — you can rotate a shape.' },
   { q: 'Why only one exercise per shape?', a: 'Because one exercise you\'ll actually do beats seven you\'ll bookmark and forget. Each shape has a specific vocal or breath practice that moves the associated body system in the opposite direction of the drift.' },
   { q: 'What if I score high on multiple shapes?', a: 'That\'s normal — most people carry a blend. ShadowCompass surfaces the strongest one and lists the others below with their scores. Start with the dominant one. Come back tomorrow.' },
@@ -586,7 +576,53 @@ const FAQ_ITEMS = [
   { q: 'Who made this?', a: 'AI-Native Solutions, a sovereign-software publisher. Every listing MIT-licensed, Ed25519-signed, benchmarkable. See our other tools at FallMarket.' }
 ];
 
-const STATE = { scores: {}, currentResult: null };
+// Original reflection prompts inspired by broad themes in self-development,
+// philosophy and psychology. They are not quotations or clinical measures.
+const QUESTION_BANK = {
+  tetra: [
+    {q:'When something goes wrong, how quickly do you feel you must defend yourself?', helper:'Notice the moment between an event and your reaction.', source:'Emotional awareness'},
+    {q:'Do you sometimes hear criticism even when someone may simply be asking a question?', helper:'Explore how assumptions shape the meaning you give to other people’s words.', source:'The Four Agreements · personal assumptions'},
+    {q:'What usually happens inside you when you feel disrespected?', helper:'Look for the feeling underneath the first reaction.', source:'Emotional intelligence'},
+    {q:'When was the last time you chose curiosity instead of an immediate reaction?', helper:'A pause can create room for a different response.', source:'Mindful awareness'}
+  ],
+  spiral: [
+    {q:'What do you keep chasing because you believe it will finally make you feel enough?', helper:'Separate the thing you want from the feeling you hope it will bring.', source:'Motivation and reward'},
+    {q:'Is there a habit you repeat even after it stops giving you what you hoped for?', helper:'Notice the loop without judging yourself for having it.', source:'Behavioural psychology'},
+    {q:'When you reach a goal, do you allow yourself to enjoy it or quickly move the finish line?', helper:'Explore your relationship with arrival and satisfaction.', source:'Self-development'},
+    {q:'What would you choose if you did not need anyone else to notice?', helper:'Consider the difference between inner values and external approval.', source:'Values clarification'}
+  ],
+  sphere: [
+    {q:'When you feel uncomfortable, what do you reach for before asking what you need?', helper:'Notice whether you seek distraction, comfort, connection or rest.', source:'Emotional regulation'},
+    {q:'What feeling do you find hardest to sit with without immediately changing it?', helper:'Curiosity can help you understand the need beneath an urge.', source:'Mindfulness'},
+    {q:'Where in your life would a gentle boundary help you feel more balanced?', helper:'Think about time, attention, food, media or relationships.', source:'Healthy boundaries'},
+    {q:'Do you give yourself permission to stop when you have had enough?', helper:'Explore how you recognise your own limits.', source:'Self-awareness'}
+  ],
+  line: [
+    {q:'When did you last feel genuinely interested in something, even for a few minutes?', helper:'Look for small signs of energy, curiosity or connection.', source:'Wellbeing reflection'},
+    {q:'Do you call it peace when you might actually be avoiding what you feel?', helper:'There is a difference between calm and emotional disconnection.', source:'Emotional literacy'},
+    {q:'What is one small thing that usually makes you feel more present?', helper:'Choose something gentle and realistic, not another demand.', source:'Grounding'},
+    {q:'If your tiredness could speak, what might it ask you to change?', helper:'Listen without forcing an immediate solution.', source:'Self-compassion'}
+  ],
+  cone: [
+    {q:'Which thought about not having enough takes up the most space in your mind?', helper:'Name the worry, then separate what is urgent from what can wait.', source:'Scarcity and decision-making'},
+    {q:'What becomes possible when you focus on the next small step instead of the whole mountain?', helper:'Bring attention back to what is within reach today.', source:'Behavioural change'},
+    {q:'Where are you treating rest as something you must earn?', helper:'Explore the beliefs you carry about productivity and worth.', source:'Self-compassion'},
+    {q:'What resource do you already have that you have not been giving credit to?', helper:'Look beyond money: skills, time, support, experience and creativity.', source:'Strengths-based reflection'}
+  ],
+  mirror: [
+    {q:'Whose approval still has more influence over your choices than you would like?', helper:'Notice whose imagined opinion you carry into decisions.', source:'Social comparison'},
+    {q:'What do you genuinely enjoy when nobody is watching or measuring you?', helper:'Reconnect with preferences that do not need an audience.', source:'The Four Agreements · self-definition'},
+    {q:'When you compare yourself with someone, what need or desire might that comparison be revealing?', helper:'Turn comparison into information about what matters to you.', source:'Self-awareness'},
+    {q:'What would progress look like if you measured it against your own past?', helper:'Choose a personal measure rather than someone else’s timeline.', source:'Growth mindset'}
+  ],
+  tower: [
+    {q:'Which part of yourself do you work hardest to keep other people from seeing?', helper:'You choose how much to share; honesty with yourself can begin privately.', source:'The Laws of Human Nature · self-deception'},
+    {q:'Where do you say “I’m fine” because explaining the truth feels too difficult?', helper:'Consider what a safe, honest sentence might sound like.', source:'Emotional intelligence'},
+    {q:'Who can you be imperfect around without feeling you must perform?', helper:'Think about relationships where you can lower the mask safely.', source:'Connection and vulnerability'},
+    {q:'What responsibility are you carrying alone that you could ask someone to share?', helper:'Strength can include asking for support.', source:'Healthy relationships'}
+  ]
+};
+const STATE = { scores: {}, currentResult: null, page: 0, prompts: {} };
 const DB_NAME = 'shadowcompass', DB_VERSION = 1;
 
 function openDB() {
@@ -651,52 +687,70 @@ function switchView(name) {
   const tab = document.querySelector('.tab[data-view=' + name + ']');
   if (view) view.classList.add('on');
   if (tab) tab.classList.add('on');
-  if (name === 'sonar') renderProbes();
+  if (name === 'sonar') startQuestionSession();
   if (name === 'journal') renderJournal();
   if (name === 'faq') renderFaq();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => switchView(t.dataset.view)));
 
-function renderProbes() {
-  const wrap = document.getElementById('probes');
-  wrap.innerHTML = SHAPES.map((s, i) => `
-    <div class="probe" id="probe-${s.id}">
-      <div class="probe-head">
-        <div>
-          <div class="probe-num">Question ${i + 1} of 7 · ${s.latin}</div>
-          <div class="probe-shape">${s.glyph}</div>
-        </div>
-      </div>
-      <q>${s.q}</q>
-      <p class="helper">${s.helper}</p>
-      <div class="slider-wrap">
-        <div class="slider-row">
-          <input type="range" min="0" max="10" value="${STATE.scores[s.id] ?? 0}" data-shape="${s.id}" oninput="updateSlider(this)">
-          <div class="slider-val" id="val-${s.id}">${STATE.scores[s.id] ?? 0}</div>
-        </div>
-        <div class="slider-labels">
-          <span>not me</span>
-          <span>somewhat</span>
-          <span>very much me</span>
-        </div>
-      </div>
-    </div>
-  `).join('');
+function pickPrompt(shapeId, previousText) {
+  const choices = QUESTION_BANK[shapeId] || [];
+  const fresh = choices.filter(p => p.q !== previousText);
+  const pool = fresh.length ? fresh : choices;
+  return pool[Math.floor(Math.random() * pool.length)];
 }
 
+function startQuestionSession() {
+  STATE.scores = {};
+  STATE.page = 0;
+  STATE.prompts = {};
+  SHAPES.forEach(s => { STATE.prompts[s.id] = pickPrompt(s.id); });
+  renderProbes();
+}
+
+function renderProbes() {
+  const wrap = document.getElementById('probes');
+  const s = SHAPES[STATE.page];
+  if (!s) return;
+  const p = STATE.prompts[s.id] || {q:s.q, helper:s.helper, source:'Reflection'};
+  const val = STATE.scores[s.id] ?? 0;
+  wrap.innerHTML = `
+    <div class="probe active" id="probe-${s.id}">
+      <div class="probe-head"><div>
+        <div class="probe-num">Reflection ${STATE.page + 1} of ${SHAPES.length} · ${s.latin}</div>
+        <div class="probe-shape">${s.glyph}</div>
+      </div></div>
+      <q>${p.q}</q>
+      <p class="helper">${p.helper}</p>
+      <p class="probe-num">Inspired by: ${p.source}</p>
+      <div class="slider-wrap"><div class="slider-row">
+        <input type="range" min="0" max="10" value="${val}" data-shape="${s.id}" oninput="updateSlider(this)">
+        <div class="slider-val" id="val-${s.id}">${val}</div>
+      </div><div class="slider-labels"><span>not me</span><span>somewhat</span><span>very much me</span></div></div>
+    </div>
+    <div class="question-progress" aria-label="Question progress"><div style="width:${((STATE.page+1)/SHAPES.length)*100}%"></div></div>
+    <div class="question-nav">
+      <button class="btn" ${STATE.page===0?'disabled':''} onclick="previousQuestion()">← Back</button>
+      ${STATE.page < SHAPES.length-1
+        ? '<button class="btn primary" onclick="nextQuestion()">Next question →</button>'
+        : '<button class="btn primary" onclick="scoreSonar()">Complete reflection →</button>'}
+    </div>`;
+}
+
+function nextQuestion() {
+  if (STATE.page < SHAPES.length - 1) { STATE.page++; renderProbes(); }
+}
+function previousQuestion() {
+  if (STATE.page > 0) { STATE.page--; renderProbes(); }
+}
 function updateSlider(el) {
   const shape = el.dataset.shape;
   const val = parseInt(el.value, 10);
   STATE.scores[shape] = val;
   document.getElementById('val-' + shape).textContent = val;
-  document.getElementById('probe-' + shape).classList.toggle('active', val >= 6);
 }
-
-function resetSonar() {
-  STATE.scores = {};
-  renderProbes();
-}
+function resetSonar() { startQuestionSession(); }
 
 function scoreSonar() {
   const scored = SHAPES.map(s => ({ ...s, score: STATE.scores[s.id] ?? 0 })).sort((a, b) => b.score - a.score);
@@ -705,7 +759,7 @@ function scoreSonar() {
     return;
   }
   const dominant = scored[0];
-  const entry = { date: Date.now(), dominant_id: dominant.id, scores: { ...STATE.scores } };
+  const entry = { date: Date.now(), dominant_id: dominant.id, scores: { ...STATE.scores }, prompts: Object.fromEntries(SHAPES.map(s => [s.id, STATE.prompts[s.id]?.q || s.q])) };
   STATE.currentResult = { entry, scored };
   renderResult();
   switchView('result');
@@ -841,30 +895,32 @@ async function exportJournal() {
   URL.revokeObjectURL(url);
 }
 
+function sameEntry(a, b) {
+  if (Number(a.date) !== Number(b.date) || a.dominant_id !== b.dominant_id) return false;
+  const aa = a.scores || {}, bb = b.scores || {};
+  return SHAPES.every(s => Number(aa[s.id] || 0) === Number(bb[s.id] || 0));
+}
 function importJournal() {
   const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.json,application/json';
+  input.type = 'file'; input.accept = '.json,application/json';
   input.onchange = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const file = e.target.files[0]; if (!file) return;
     try {
-      const text = await file.text();
-      const data = JSON.parse(text);
+      const data = JSON.parse(await file.text());
       if (!data.entries || !Array.isArray(data.entries)) throw new Error('Not a ShadowCompass export');
+      const existing = await listEntries(); let added = 0, skipped = 0;
       for (const entry of data.entries) {
-        const clean = { date: entry.date, dominant_id: entry.dominant_id, scores: entry.scores };
-        await saveEntry(clean);
+        if (!entry || !Number.isFinite(Number(entry.date)) || !SHAPES.some(s => s.id === entry.dominant_id) || !entry.scores || typeof entry.scores !== 'object') { skipped++; continue; }
+        const clean = { date:Number(entry.date), dominant_id:entry.dominant_id, scores:entry.scores, ...(entry.prompts ? {prompts:entry.prompts} : {}) };
+        if (existing.some(old => sameEntry(old, clean))) { skipped++; continue; }
+        await saveEntry(clean); existing.push(clean); added++;
       }
-      alert(`Imported ${data.entries.length} entries.`);
+      alert(`Import complete: ${added} new reflection(s) added; ${skipped} duplicate or invalid item(s) skipped.`);
       renderJournal();
-    } catch (err) {
-      alert('Import failed: ' + err.message);
-    }
+    } catch (err) { alert('Import failed: ' + err.message); }
   };
   input.click();
 }
-
 function renderFaq() {
   const wrap = document.getElementById('faq-list');
   wrap.innerHTML = FAQ_ITEMS.map(f => `
@@ -876,7 +932,7 @@ function renderFaq() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  renderProbes();
+  startQuestionSession();
   renderFaq();
 });
 

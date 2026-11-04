@@ -1,26 +1,23 @@
 {
-  "id": "./",
-  "name": "ShadowCompass",
+  "name": "ShadowCompass \u2014 Self-Reflection Journey",
   "short_name": "ShadowCompass",
-  "description": "A private self-reflection tool with guided exercises and a local journal.",
+  "description": "A private journey of self-reflection.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
   "background_color": "#030308",
   "theme_color": "#030308",
   "icons": [
     {
       "src": "./icon-192.png",
       "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     },
     {
       "src": "./icon-512.png",
       "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
+      "type": "image/png"
     }
   ]
 }
