@@ -1,18 +1,19 @@
-# ShadowCompass
+# ShadowCompass — Echo first test build
 
-A private, browser-based self-reflection tool. The seven shapes are metaphors for reflection, not a clinical or scientifically validated assessment.
+## What is included
+- Echo conversation screen with Guided Reflection and Open Conversation modes.
+- Situation, experience-statement, and perspective selection.
+- Local-first response logic for this first test build (not a live AI model).
+- Existing seven-shape Sonar, results, exercises, journal, and FAQ retained.
+- PWA manifest, icons, and service worker for browser installation/offline shell caching.
 
-## Files
-- `index.html` — app
-- `manifest.webmanifest` — install metadata
-- `sw.js` — offline app-shell cache
-- `icon-192.png`, `icon-512.png` — app icons
+## Test locally
+Open `index.html` in a modern browser. For service-worker/PWA testing, serve the folder over localhost (for example `python -m http.server 8080`) and visit `http://localhost:8080`.
 
-## Publish
-Place all files in the repository root (same level as `index.html`) and enable GitHub Pages from `main` / root.
+## Publish on GitHub Pages
+Upload the contents of this folder to the repository root on the `main` branch. Ensure `index.html`, `manifest.webmanifest`, `sw.js`, `icon-192.png`, and `icon-512.png` are all at the root. Then enable GitHub Pages from `main` / root.
 
-## Privacy and journal
-Journal data is stored locally in the browser using IndexedDB. Export a backup before clearing browser data or changing devices. Import skips entries that match an existing date, dominant shape and score set.
+## Privacy and limitations
+This version does not send Echo messages to an AI provider. Conversation text is held in the page memory only and is not saved to the journal. The existing journal remains local in IndexedDB. Do not add private API keys to this public repository. A secure server-side AI connection is a later stage.
 
-## Important
-The question prompts are original and inspired by broad themes in self-development, philosophy and psychology; they are not quotations. The seven-shape framework is not a validated psychological test, diagnosis or treatment.
+The seven-shape framework is a self-reflection framework, not a validated psychological assessment, diagnosis, or treatment. Exercises should be comfortable; stop if dizzy or distressed.
